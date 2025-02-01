@@ -6,9 +6,12 @@ import { MdCampaign } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
 
 export default function Navbar({ innerRef }) {
+  const onClickLogout = () => {
+    localStorage.removeItem("access_token");
+  };
   return (
     <nav
-      className="fixed w-full flex justify-between bg-gray-800 p-4"
+      className="fixed w-full flex justify-between bg-gray-800 p-4 z-40"
       ref={innerRef}
     >
       <div className="flex gap-16 space-x-4">
@@ -32,7 +35,11 @@ export default function Navbar({ innerRef }) {
           <span>Campaign</span>
         </Link>
       </div>
-      <Link to="/logout" className="text-white flex items-center space-x-2">
+      <Link
+        to="/"
+        className="text-white flex items-center space-x-2"
+        onClick={onClickLogout}
+      >
         <FiLogOut size="26" color="white" />
         <span>Logout</span>
       </Link>

@@ -6,7 +6,16 @@ import { Outlet, useLocation } from "react-router";
 export default function NavLayout() {
   const location = useLocation();
   const navbarRef = React.useRef(null);
-  const navbarHeight = navbarRef.current ? navbarRef.current.clientHeight : 0;
+  const [navbarHeight, setNavbarHeight] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!navbarRef.current) return;
+    const resizeObserver = new ResizeObserver(() => {
+      setNavbarHeight(navbarRef.current.clientHeight);
+    });
+    resizeObserver.observe(navbarRef.current);
+    return () => resizeObserver.disconnect(); // clean up
+  }, []);
 
   const isCanvasRoute = location.pathname.includes("canvas");
   return (
