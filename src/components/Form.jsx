@@ -11,6 +11,15 @@ const Form = () => {
       <div className="bg-white shadow-lg rounded-lg p-6 w-[600px]">
         <h2 className="text-xl font-semibold mb-4">Google Ads - New Campaign A</h2>
 
+        <div className="mb-4">
+          <label className="text-sm font-medium">Business Name</label>
+          <input
+            type="text"
+            className="w-full p-2 border rounded mt-1"
+            placeholder="Your business name"
+          />
+        </div>
+
         {/* Headline Inputs */}
         <div className="mb-4">
           <label className="text-sm font-medium">Headline</label>
@@ -61,26 +70,6 @@ const Form = () => {
           />
         </div>
 
-        {/* Descriptions */}
-        <div className="mb-4">
-          <label className="text-sm font-medium">Descriptions (3/4)</label>
-          <textarea
-            className="w-full p-2 border rounded mt-1"
-            placeholder="Enter your ad description..."
-            rows="3"
-          ></textarea>
-        </div>
-
-        {/* Business Name */}
-        <div className="mb-4">
-          <label className="text-sm font-medium">Business Name</label>
-          <input
-            type="text"
-            className="w-full p-2 border rounded mt-1"
-            placeholder="Your business name"
-          />
-        </div>
-
         {/* Toggle: Make Descriptions Unique */}
         <div className="flex items-center justify-between mb-4">
           <span className="text-sm font-medium">Make descriptions unique</span>
@@ -97,6 +86,15 @@ const Form = () => {
               } inline-block h-4 w-4 transform bg-white rounded-full`}
             />
           </Switch>
+        </div>
+         {/* Descriptions */}
+         <div className="mb-4">
+          <label className="text-sm font-medium">Descriptions (3/4)</label>
+          <textarea
+            className="w-full p-2 border rounded mt-1"
+            placeholder="Enter your ad description..."
+            rows="3"
+          ></textarea>
         </div>
 
         {/* Ad Strength */}
@@ -135,7 +133,16 @@ const Form = () => {
 
       {/* Form 2 */}
       <div className="bg-white shadow-lg rounded-lg p-6 w-[600px]">
-        <h2 className="text-xl font-semibold mb-4">Google Ads - New Campaign B</h2>
+        <h2 className="text-xl font-semibold mb-4">Google Ads - New Campaign B </h2>
+
+        <div className="mb-4">
+          <label className="text-sm font-medium">Business Name</label>
+          <input
+            type="text"
+            className="w-full p-2 border rounded mt-1"
+            placeholder="Your business name"
+          />
+        </div>
 
         {/* Headline Inputs */}
         <div className="mb-4">
@@ -187,26 +194,6 @@ const Form = () => {
           />
         </div>
 
-        {/* Descriptions */}
-        <div className="mb-4">
-          <label className="text-sm font-medium">Descriptions (3/4)</label>
-          <textarea
-            className="w-full p-2 border rounded mt-1"
-            placeholder="Enter your ad description..."
-            rows="3"
-          ></textarea>
-        </div>
-
-        {/* Business Name */}
-        <div className="mb-4">
-          <label className="text-sm font-medium">Business Name</label>
-          <input
-            type="text"
-            className="w-full p-2 border rounded mt-1"
-            placeholder="Your business name"
-          />
-        </div>
-
         {/* Toggle: Make Descriptions Unique */}
         <div className="flex items-center justify-between mb-4">
           <span className="text-sm font-medium">Make descriptions unique</span>
@@ -223,6 +210,15 @@ const Form = () => {
               } inline-block h-4 w-4 transform bg-white rounded-full`}
             />
           </Switch>
+        </div>
+        {/* Descriptions */}
+        <div className="mb-4">
+          <label className="text-sm font-medium">Descriptions (3/4)</label>
+          <textarea
+            className="w-full p-2 border rounded mt-1"
+            placeholder="Enter your ad description..."
+            rows="3"
+          ></textarea>
         </div>
 
         {/* Ad Strength */}
