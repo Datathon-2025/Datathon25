@@ -1,8 +1,9 @@
+import Form from '../../components/Form.jsx';
 
-export default function Campaign() {
+function Campaign() {
   return (
-    <div>
-      <h1> Campaign </h1>
-    </div>
-  )
+    <Form />
+  );
 }
+
+export default Campaign;

@@ -1,10 +1,15 @@
-import Button from "../components/Button";
+import Nav from "../components/Nav";
+import Hero from "../components/Hero";
+import Feature from "../components/Feature";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
     <div>
-      <p>Home</p>
-      <Button className="mt-2">Click me</Button>
+      <Nav />
+      <Hero />
+      <Feature />
+      <Footer />
     </div>
   );
 };

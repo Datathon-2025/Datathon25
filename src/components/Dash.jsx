@@ -1,111 +1,113 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
-import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/Card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/Select";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import { Activity, DollarSign, Users, ShoppingCart } from "lucide-react";
-import KPIMetrics from "../components/KPIMetrics";
-import Graphs from "../components/Graphs";
-import QuickActions from "../components/QuickActions";
-import Notifications from "./NotificationsIcon";
+import React from "react";
+import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, Tooltip, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer } from "recharts";
 
-// Mock data for the chart
-const chartData = [
-  { name: "Jan", visits: 4000, sales: 2400 },
-  { name: "Feb", visits: 3000, sales: 1398 },
-  { name: "Mar", visits: 2000, sales: 9800 },
-  { name: "Apr", visits: 2780, sales: 3908 },
-  { name: "May", visits: 1890, sales: 4800 },
-  { name: "Jun", visits: 2390, sales: 3800 },
+const performanceData = [
+  { name: "Jan", CTR: 3.2, Impressions: 5000, BounceRate: 40 },
+  { name: "Feb", CTR: 4.1, Impressions: 6200, BounceRate: 38 },
+  { name: "Mar", CTR: 5.0, Impressions: 7500, BounceRate: 35 },
+  { name: "Apr", CTR: 4.7, Impressions: 7000, BounceRate: 37 },
 ];
 
-// Mock data for recent activities
-const recentActivities = [
-  { id: 1, action: "New sale", amount: "$250", customer: "John Doe" },
-  { id: 2, action: "New customer", amount: null, customer: "Jane Smith" },
-  { id: 3, action: "Refund processed", amount: "$50", customer: "Bob Johnson" },
+const budgetData = [
+  { platform: "Google Ads", spend: 5000 },
+  { platform: "Facebook Ads", spend: 3000 },
+  { platform: "Instagram", spend: 2000 },
+  { platform: "LinkedIn", spend: 1500 },
 ];
 
-// Mock data for notifications
-const notifications = [
-  "Campaign A is underperforming.",
-  "Optimize budget for Campaign B.",
-  "New recommendation available for Campaign C.",
+const behaviorData = [
+  { name: "Returning Customers", value: 65 },
+  { name: "New Customers", value: 35 },
 ];
 
-function SummaryCard({ title, value, icon }) {
+const marketTrendsData = [
+  { name: "SEO", popularity: 78 },
+  { name: "PPC", popularity: 65 },
+  { name: "Social Media", popularity: 85 },
+  { name: "Email Marketing", popularity: 50 },
+];
+
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+
+const Dashboard = () => {
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        {icon}
-      </CardHeader>
-      <CardContent>
-        <div className="text-2xl font-bold">{value}</div>
-      </CardContent>
-    </Card>
-  );
-}
-
-SummaryCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  icon: PropTypes.element.isRequired,
-};
-
-export function Dash() {
-  const [dateRange, setDateRange] = useState("7d");
-
-  return (
-    <div className="p-8">
-      <header className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Marketing Dashboard</h1>
-        <Select value={dateRange} onValueChange={setDateRange}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Select date range" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="7d">Last 7 days</SelectItem>
-            <SelectItem value="30d">Last 30 days</SelectItem>
-            <SelectItem value="90d">Last 90 days</SelectItem>
-          </SelectContent>
-        </Select>
-      </header>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <SummaryCard
-          title="Total Revenue"
-          value="$54,231"
-          icon={<DollarSign className="h-4 w-4 text-muted-foreground" />}
-        />
-        <SummaryCard title="Visitors" value="2,345" icon={<Users className="h-4 w-4 text-muted-foreground" />} />
-        <SummaryCard
-          title="Total Sales"
-          value="1,234"
-          icon={<ShoppingCart className="h-4 w-4 text-muted-foreground" />}
-        />
-        <SummaryCard
-          title="Conversion Rate"
-          value="2.3%"
-          icon={<Activity className="h-4 w-4 text-muted-foreground" />}
-        />
+    <div className="p-6 bg-gray-100 min-h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      {/* Performance Analytics */}
+      <div className="bg-white p-4 rounded-xl shadow-md">
+        <h2 className="text-xl font-semibold mb-2">Performance Analytics</h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={performanceData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="CTR" stroke="#0088FE" />
+            <Line type="monotone" dataKey="Impressions" stroke="#00C49F" />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+      
+      {/* Budget Allocation */}
+      <div className="bg-white p-4 rounded-xl shadow-md">
+        <h2 className="text-xl font-semibold mb-2">Budget Allocation</h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <PieChart>
+            <Pie data={budgetData} dataKey="spend" nameKey="platform" outerRadius={100}>
+              {budgetData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend />
+          </PieChart>
+        </ResponsiveContainer>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <KPIMetrics title="CTR" value="1.5%" change="+0.2%" changeType="increase" />
-        <KPIMetrics title="Conversion Rate" value="2.3%" change="-0.1%" changeType="decrease" />
-        <KPIMetrics title="ROI" value="150%" change="+10%" changeType="increase" />
-        <KPIMetrics title="Ad Spend" value="$10,000" change="+5%" changeType="increase" />
-        <KPIMetrics title="Engagement" value="75%" change="+3%" changeType="increase" />
+      {/* Customer Behavior Analysis */}
+      <div className="bg-white p-4 rounded-xl shadow-md">
+        <h2 className="text-xl font-semibold mb-2">Customer Behavior</h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <PieChart>
+            <Pie data={behaviorData} dataKey="value" nameKey="name" outerRadius={100}>
+              {behaviorData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend />
+          </PieChart>
+        </ResponsiveContainer>
       </div>
 
-      <Graphs data={chartData} />
+      {/* Market Trends */}
+      <div className="bg-white p-4 rounded-xl shadow-md">
+        <h2 className="text-xl font-semibold mb-2">Market Trends</h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={marketTrendsData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="popularity" fill="#FFBB28" />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
 
-      <QuickActions />
-
-      <Notifications notifications={notifications} />
+      {/* AI Recommendations */}
+      <div className="bg-white p-4 rounded-xl shadow-md col-span-1 md:col-span-2 lg:col-span-3">
+        <h2 className="text-xl font-semibold mb-2">AI Recommendations</h2>
+        <ul className="list-disc ml-5 text-gray-700">
+          <li>Optimize your PPC campaigns based on peak engagement hours.</li>
+          <li>Increase social media presence as trends show high engagement.</li>
+          <li>Personalize email marketing for better conversions.</li>
+          <li>Reduce bounce rate by improving landing page experience.</li>
+        </ul>
+      </div>
     </div>
   );
-}
+};
 
-export default Dash;
+export default Dashboard;
