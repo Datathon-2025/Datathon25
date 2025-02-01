@@ -5,9 +5,9 @@ import { FaHome } from "react-icons/fa";
 import { MdCampaign } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
 
-export default function Navbar() {
+export default function Navbar({ innerRef }) {
   return (
-    <nav className="flex justify-between bg-gray-800 p-4">
+    <nav className="flex justify-between bg-gray-800 p-4" ref={innerRef}>
       <div className="flex gap-16 space-x-4">
         <Link to="/" className="text-white flex items-center space-x-2">
           <FaHome size="24" color="white" />
@@ -17,7 +17,10 @@ export default function Navbar() {
           <FaDrawPolygon size="24" color="white" />
           <span>Canvas</span>
         </Link>
-        <Link to="/dashboard" className="text-white flex items-center space-x-2">
+        <Link
+          to="/dashboard"
+          className="text-white flex items-center space-x-2"
+        >
           <MdSpaceDashboard size="24" color="white" />
           <span>Dashboard</span>
         </Link>

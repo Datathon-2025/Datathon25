@@ -1,7 +1,9 @@
 import { create } from 'zustand';
 import { Node } from 'reactflow';
 
-type ModalType = 'start' | 'edit' | 'filter' | 'code' | 'conditional' | 'delay' | 'webhook' | 'http' | 'email' | 'privatekey';
+
+type ModalType = "edit" | "start" | "campaign" | "platformMetrics" | "audienceDemographics" | "budgetAllocation" | "marketTrends" | "analysis";
+
 
 type ModalStore = {
   isOpen: boolean;

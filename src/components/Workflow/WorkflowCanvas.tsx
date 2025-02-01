@@ -122,7 +122,7 @@ export default function WorkflowCanvas() {
   }, [store.nodes, store.edges, setNodes, setEdges]);
 
   return (
-    <div ref={reactFlowWrapper} className="h-full w-full bg-gray-50">
+    <div ref={reactFlowWrapper} className="h-[92vh] w-full bg-gray-50">
       <ReactFlow
         nodes={nodes}
         edges={edges}

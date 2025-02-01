@@ -1,17 +1,29 @@
+import React from "react";
 import Navbar from "../components/Navbar.jsx";
-import { ReactFlowProvider } from 'reactflow';
+import { ReactFlowProvider } from "reactflow";
 import { Outlet, useLocation } from "react-router";
-
-import WorkspaceSidebar from "../components/Workflow/WorkspaceSidebar.tsx"
 
 export default function NavLayout() {
   const location = useLocation();
+  const navbarRef = React.useRef(null);
+  const navbarHeight = navbarRef.current ? navbarRef.current.clientHeight : 0;
 
-  const isCanvasRoute = location.pathname.includes('canvas');
+  const isCanvasRoute = location.pathname.includes("canvas");
   return (
     <>
-      <Navbar />
-      <div className={isCanvasRoute ? 'w-full h-screen' : ''}>
+      <Navbar innerRef={navbarRef} />
+      <div
+        className={isCanvasRoute ? "w-full " : ""}
+        style={
+          isCanvasRoute
+            ? {
+                height: `calc(100vh - ${navbarHeight}px)`,
+                display: "flex",
+                flexDirection: "column",
+              }
+            : {}
+        }
+      >
         {isCanvasRoute ? (
           <ReactFlowProvider>
             <Outlet />
