@@ -18,10 +18,11 @@ export default function NavLayout() {
           isCanvasRoute
             ? {
                 height: `calc(100vh - ${navbarHeight}px)`,
-                display: "flex",
-                flexDirection: "column",
+                paddingTop: `${navbarHeight}px`,
               }
-            : {}
+            : {
+                paddingTop: `${navbarHeight}px`,
+              }
         }
       >
         {isCanvasRoute ? (
