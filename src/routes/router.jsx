@@ -17,7 +17,7 @@ import Home from "../pages/Home";
 import Canvas from "../pages/canvas/Canvas.jsx"
 import Dashboard from "../pages/Dashboard.jsx"
 import Campaign from "../pages/campaign/Campaign.jsx"
-
+import Login from "../pages/login/Login.jsx";
 
 
 const router = createBrowserRouter(
@@ -32,7 +32,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path="campaign" Component={Campaign} />
       {/* </Route> */}
-      {/* <Route path="login" Component={Login} /> */}
+      <Route path="login" Component={Login} />
       <Route path="logout" Component={Logout} />
     </Route >
   )
