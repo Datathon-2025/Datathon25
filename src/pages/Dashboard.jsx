@@ -1,7 +1,10 @@
-export default function Dashboard() {
+import Dash from "../components/Dash";
+
+function Dashboard() {
   return (
-    <div>
-      <h1> Dashboard </h1>
-    </div>
+    <><Dash/></>
   )
 }
+
+export default Dashboard;
+
