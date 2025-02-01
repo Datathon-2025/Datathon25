@@ -1,13 +1,8 @@
-import { Routes, Route } from "react-router";
-
-import Home from "./pages/Home";
+import { RouterProvider } from "react-router-dom";
+import router from "./routes/router";
 
 function App() {
-  return (
-    <Routes>
-      <Route path="/" Component={Home} />
-    </Routes>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
