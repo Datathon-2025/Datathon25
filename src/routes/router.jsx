@@ -3,7 +3,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
-} from "react-router-dom";
+} from "react-router";
 
 // import Protected from "../layouts/Protected";
 import NavLayout from "../layouts/NavLayout.jsx"

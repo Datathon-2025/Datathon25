@@ -1,6 +1,6 @@
 
 import { Home, Message, MessageAdd1, Box1 } from "iconsax-react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link } from "react-router";
 
 function NavbarItem({ Icon, text, to }) {
   return (
