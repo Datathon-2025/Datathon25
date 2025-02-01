@@ -1,40 +1,31 @@
+import { Link } from "react-router-dom";
+import { Home, Magicpen, Grid5, People, Logout } from "iconsax-react";
 
-import { Home, Message, MessageAdd1, Box1 } from "iconsax-react";
-import { NavLink, Link } from "react-router";
-
-function NavbarItem({ Icon, text, to }) {
+export default function Navbar() {
   return (
-    <NavLink to={to} className="flex flex-col items-center">
-      {({ isActive }) => (
-        <>
-          <Icon
-            variant={isActive ? "Bold" : "Linear"}
-            color={isActive ? "#d16421" : "#d16421"} // TODO: Pass from tailwind theme
-          />{" "}
-          <span
-            className={`text-xs ${isActive ? "text-primary" : "text-mute "}`}
-          >
-            {text}
-          </span>
-        </>
-      )}
-    </NavLink>
-  );
-}
-
-export default function FooterNav() {
-  return (
-    <div className="h-20 fixed bottom-0 left-0 w-full flex flex-row justify-around pt-3 z-10 shadow-2xl bg-background">
-      <NavbarItem Icon={Home} text="My Spaces" to="/" />
-      <NavbarItem Icon={Box1} text="SpaceList" to="/spaces" />
-      <NavbarItem Icon={Message} text="Gupshup AI" to="/gupshup" />
-      <Link
-        to="/spaces/create"
-        className="flex flex-row gap-2 fixed items-center bottom-24 right-4 p-3 bg-primary text-white rounded-tl-full rounded-tr-full rounded-br-full shadow-lg"
-      >
-        <MessageAdd1 size="22" />
-        <p className="text-xs font-bold">New Space</p>
+    <nav className="flex justify-between bg-gray-800 p-4">
+      <div className="flex gap-16 space-x-4">
+        <Link to="/" className="text-white flex items-center space-x-2">
+          <Home size="24" color="white" />
+          <span>Home</span>
+        </Link>
+        <Link to="/canvas" className="text-white flex items-center space-x-2">
+          <Magicpen size="24" color="white" />
+          <span>Canvas</span>
+        </Link>
+        <Link to="/dashboard" className="text-white flex items-center space-x-2">
+          <Grid5 size="24" color="white" />
+          <span>Dashboard</span>
+        </Link>
+        <Link to="/campaign" className="text-white flex items-center space-x-2">
+          <People size="24" color="white" />
+          <span>Campaign</span>
+        </Link>
+      </div>
+      <Link to="/logout" className="text-white flex items-center space-x-2">
+        <Logout size="24" color="white" />
+        <span>Logout</span>
       </Link>
-    </div>
+    </nav>
   );
 }
