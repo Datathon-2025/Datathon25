@@ -1,5 +1,7 @@
 import React from "react";
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, Tooltip, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer } from "recharts";
+import StatsCard from "./StatsCard";
+import CampaignCard from "./CampaignCard";
 
 const performanceData = [
   { name: "Jan", CTR: 3.2, Impressions: 5000, BounceRate: 40 },
@@ -29,85 +31,94 @@ const marketTrendsData = [
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
-const Dashboard = () => {
+const Dash = () => {
   return (
-    <div className="p-6 bg-gray-100 min-h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      
-      {/* Performance Analytics */}
-      <div className="bg-white p-4 rounded-xl shadow-md">
-        <h2 className="text-xl font-semibold mb-2">Performance Analytics</h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={performanceData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="CTR" stroke="#0088FE" />
-            <Line type="monotone" dataKey="Impressions" stroke="#00C49F" />
-          </LineChart>
-        </ResponsiveContainer>
+    <>
+      <div className="p-4">
+        <StatsCard />
       </div>
-      
-      {/* Budget Allocation */}
-      <div className="bg-white p-4 rounded-xl shadow-md">
-        <h2 className="text-xl font-semibold mb-2">Budget Allocation</h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <PieChart>
-            <Pie data={budgetData} dataKey="spend" nameKey="platform" outerRadius={100}>
-              {budgetData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip />
-            <Legend />
-          </PieChart>
-        </ResponsiveContainer>
+      <div className="p-4 rounded-xl shadow-md">
+        <CampaignCard />
       </div>
+      <div className="p-6 bg-gray-100 min-h-screen grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Performance Analytics */}
+          <div className="bg-white p-4 rounded-xl shadow-md">
+            <h2 className="text-xl font-semibold mb-2">Performance Analytics</h2>
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={performanceData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="CTR" stroke="#0088FE" />
+                <Line type="monotone" dataKey="Impressions" stroke="#00C49F" />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
 
-      {/* Customer Behavior Analysis */}
-      <div className="bg-white p-4 rounded-xl shadow-md">
-        <h2 className="text-xl font-semibold mb-2">Customer Behavior</h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <PieChart>
-            <Pie data={behaviorData} dataKey="value" nameKey="name" outerRadius={100}>
-              {behaviorData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip />
-            <Legend />
-          </PieChart>
-        </ResponsiveContainer>
-      </div>
+          {/* Budget Allocation */}
+          <div className="bg-white p-4 rounded-xl shadow-md">
+            <h2 className="text-xl font-semibold mb-2">Budget Allocation</h2>
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie data={budgetData} dataKey="spend" nameKey="platform" outerRadius={100}>
+                  {budgetData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
 
-      {/* Market Trends */}
-      <div className="bg-white p-4 rounded-xl shadow-md">
-        <h2 className="text-xl font-semibold mb-2">Market Trends</h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={marketTrendsData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="popularity" fill="#FFBB28" />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+          {/* Customer Behavior Analysis */}
+          <div className="bg-white p-4 rounded-xl shadow-md">
+            <h2 className="text-xl font-semibold mb-2">Customer Behavior</h2>
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie data={behaviorData} dataKey="value" nameKey="name" outerRadius={100}>
+                  {behaviorData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
 
-      {/* AI Recommendations */}
-      <div className="bg-white p-4 rounded-xl shadow-md col-span-1 md:col-span-2 lg:col-span-3">
-        <h2 className="text-xl font-semibold mb-2">AI Recommendations</h2>
-        <ul className="list-disc ml-5 text-gray-700">
-          <li>Optimize your PPC campaigns based on peak engagement hours.</li>
-          <li>Increase social media presence as trends show high engagement.</li>
-          <li>Personalize email marketing for better conversions.</li>
-          <li>Reduce bounce rate by improving landing page experience.</li>
-        </ul>
+          {/* Market Trends */}
+          <div className="bg-white p-4 rounded-xl shadow-md">
+            <h2 className="text-xl font-semibold mb-2">Market Trends</h2>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={marketTrendsData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="popularity" fill="#FFBB28" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* AI Recommendations */}
+        <div className="bg-white p-4 rounded-xl shadow-md lg:col-span-1 h-auto max-h-92 overflow-y-auto">
+          <h2 className="text-xl font-semibold mb-2">AI Recommendations</h2>
+          <ul className="list-disc ml-5 text-gray-700">
+            <li>Optimize your PPC campaigns based on peak engagement hours.</li>
+            <li>Increase social media presence as trends show high engagement.</li>
+            <li>Personalize email marketing for better conversions.</li>
+            <li>Reduce bounce rate by improving landing page experience.</li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
-export default Dashboard;
+export default Dash;

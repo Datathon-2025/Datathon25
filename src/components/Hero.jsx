@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
-    <section className="relative bg-gradient-to-br from-blue-900 to-black text-white py-42 text-center overflow-hidden">
+    <section className="relative bg-gradient-to-br from-blue-900 to-black text-white py-54 text-center overflow-hidden">
       <div className="absolute inset-0 bg-opacity-20 bg-[radial-gradient(circle,_rgba(255,255,255,0.1)_10%,_transparent_70%)]"></div>
       <div className="max-w-8xl mx-auto px-8 lg:px-16 relative z-10">
         <motion.h1
