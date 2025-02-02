@@ -14,7 +14,7 @@ export default function AnalysisModal() {
     // Save analysis data logic
     closeModal();
   };
-
+  return null;
   return (
     <div className="modal">
       <h2>Analysis Configuration</h2>

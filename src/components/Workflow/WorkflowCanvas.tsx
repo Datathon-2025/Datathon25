@@ -14,7 +14,6 @@ import "reactflow/dist/style.css";
 import { useWorkflowStore } from "../../stores/workflowStore";
 import { useModalStore } from "../../stores/modalStore";
 import NodeSidebar from "./NodeSidebar";
-import StartNodeModal from "./StartNodeModal";
 import ExecuteFlowButton from "./ExecuteFlowButton";
 import CustomEdge from "./edges/CustomEdge";
 import { nodeTypes } from "./nodes"; // Import nodeTypes from index.ts
@@ -26,7 +25,6 @@ import AudienceDemographicsNodeModal from "../Workflow/nodes/AudienceDemographic
 import BudgetAllocationNodeModal from "../Workflow/nodes/BudgetAllocation/BudgetAllocationModal.tsx";
 import MarketTrendsNodeModal from "../Workflow/nodes/MarketTrends/MarketTrendsModal.tsx";
 import AnalysisNodeModal from "../Workflow/nodes/Analysis/AnalysisModal.tsx";
-// import StartNodeModal from "../Workflow/nodes/Start/StartModal.tsx";
 
 const edgeTypes = {
   smoothstep: CustomEdge,
@@ -87,7 +85,7 @@ export default function WorkflowCanvas() {
 
       const newNode = {
         id: `${type}-${Date.now()}`,
-        type,
+        type: "custom", // Use custom node type
         position,
         data: {
           label: type === "conditional" ? "If Condition" : `New ${type}`,
@@ -146,7 +144,6 @@ export default function WorkflowCanvas() {
         <ExecuteFlowButton />
       </ReactFlow>
       <NodeSidebar />
-      {/* <StartNodeModal /> */}
       <CampaignNodeModal />
       <PlatformMetricsNodeModal />
       <AudienceDemographicsNodeModal />

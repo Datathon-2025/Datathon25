@@ -78,7 +78,7 @@ export const useWorkflowStore = create<WorkflowStore>((set, get) => ({
     const { nodes, edges } = get();
 
     if (!selectedReplaceId) return;
- 
+
     const replaceButton = nodes.find((node) => node.id === selectedReplaceId);
     if (!replaceButton) return;
 

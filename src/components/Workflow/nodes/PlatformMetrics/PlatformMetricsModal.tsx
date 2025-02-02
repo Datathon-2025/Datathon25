@@ -14,7 +14,7 @@ export default function PlatformMetricsModal() {
     // Save platform metrics data logic
     closeModal();
   };
-
+  return null;
   return (
     <div className="modal">
       <h2>Platform Metrics Configuration</h2>
