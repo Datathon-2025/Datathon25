@@ -30,13 +30,13 @@ const Hero = () => {
         >
           <Link
             to="/demo"
-            className="px-10 py-5 bg-blue-500 hover:bg-purple-500 transition-all rounded-lg font-semibold text-2xl shadow-lg hover:scale-105 duration-300"
+            className="px-7 py-3 bg-blue-500 hover:bg-purple-500 transition-all rounded-full font-semibold text-xl shadow-lg hover:scale-105 duration-300"
           >
             Request a Demo
           </Link>
           <Link
             to="/learn-more"
-            className="px-10 py-5 border border-gray-400 hover:border-white transition-all rounded-lg font-semibold text-2xl shadow-lg hover:scale-105 duration-300"
+            className="px-7 py-3 border border-gray-400 hover:border-white transition-all rounded-full font-semibold text-xl shadow-lg hover:scale-105 duration-300"
           >
             Learn More
           </Link>
