@@ -6,6 +6,7 @@ import MarketTrendsNode from "../nodes/MarketTrends/MarketTrendsNode.tsx";
 import AnalysisNode from "../nodes/Analysis/AnalysisNode.tsx";
 import StartNode from "../nodes/Start/StartNode.tsx";
 import ReplaceNode from "../nodes/Replace/ReplaceNode.tsx";
+import DataNode from "../nodes/Data/DataNode.tsx";
 
 export const nodeTypes = {
   start: StartNode,
@@ -16,4 +17,5 @@ export const nodeTypes = {
   budgetAllocation: BudgetAllocationNode,
   marketTrends: MarketTrendsNode,
   analysis: AnalysisNode,
+  data: DataNode,
 };

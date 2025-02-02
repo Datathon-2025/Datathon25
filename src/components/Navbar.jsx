@@ -32,7 +32,14 @@ export default function Navbar({ innerRef }) {
         </Link>
         <Link to="/campaign" className="text-white flex items-center space-x-2">
           <MdCampaign size="24" color="white" />
-          <span>Campaign</span>
+          <span>Campaign A/B</span>
+        </Link>
+        <Link
+          to="/campaignAI"
+          className="text-white flex items-center space-x-2"
+        >
+          <MdCampaign size="24" color="white" />
+          <span>CampaignAI</span>
         </Link>
       </div>
       <Link

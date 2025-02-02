@@ -14,10 +14,11 @@ import Home from "../pages/Home";
 
 import Workflow from "../components/Workflow/WorkflowCanvas.tsx";
 
-import Canvas from "../pages/canvas/";
 import Dashboard from "../pages/Dashboard.jsx";
 import Campaign from "../pages/campaign/";
 import Login from "../pages/login/Login.jsx";
+
+import FormAI from "../components/FormAI.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,12 +26,11 @@ const router = createBrowserRouter(
       {/* <Route Component={Protected}> */}
       <Route index Component={Home} />
       <Route Component={NavLayout}>
-        {/* <Route path="canvas" Component={Canvas} /> */}
         <Route path="canvas" Component={Workflow} />
         <Route path="dashboard" Component={Dashboard} />
+        <Route path="campaign" Component={Campaign} />
+        <Route path="campaignAI" Component={FormAI} />
       </Route>
-      <Route path="campaign" Component={Campaign} />
-      {/* </Route> */}
       <Route path="login" Component={Login} />
       <Route path="logout" Component={Logout} />
     </Route>

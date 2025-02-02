@@ -12,4 +12,6 @@ export const nodeStyles = {
     'w-12 h-12 flex items-center justify-center rounded-lg bg-white border border-gray-200 shadow-sm',
   addButton:
     'w-12 h-12 flex items-center justify-center rounded-lg bg-white border shadow-sm',
+  data:
+    'bg-white border shadow-sm flex flex-col gap-2 items-center justify-center rounded-lg p-2 text-sm'
 };

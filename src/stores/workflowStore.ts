@@ -5,6 +5,8 @@ import { calculateLayout } from "../utils/layoutUtils";
 type WorkflowStore = {
   nodes: Node[];
   edges: Edge[];
+  campaignData: any;
+  setCampaignData: (data: any) => void;
   addNodeWithButton: (node: Node, nodeId: string) => void;
   removeEdge: (edgeId: string) => void;
   removeNode: (nodeId: string) => void;
@@ -39,6 +41,7 @@ const initialEdges: Edge[] = [
 export const useWorkflowStore = create<WorkflowStore>((set, get) => ({
   nodes: initialNodes,
   edges: initialEdges,
+  campaignData: null,
 
   updateLayout: () => {
     const { nodes, edges } = get();
@@ -74,10 +77,10 @@ export const useWorkflowStore = create<WorkflowStore>((set, get) => ({
     }));
   },
 
-  addNodeWithButton: (newNode: Node, selectedReplaceId?: string) => {
+  addNodeWithButton: (newNode: Node, selectedReplaceId?: string | null | undefined) => {
     const { nodes, edges } = get();
 
-    if (!selectedReplaceId) return;
+    if (selectedReplaceId) { 
 
     const replaceButton = nodes.find((node) => node.id === selectedReplaceId);
     if (!replaceButton) return;
@@ -220,5 +223,13 @@ export const useWorkflowStore = create<WorkflowStore>((set, get) => ({
 
     const updatedNodes = calculateLayout(newNodes, newEdges);
     set({ nodes: updatedNodes, edges: newEdges });
+    } else {
+      const updatedNodes = [...nodes, newNode];
+      set({ nodes: updatedNodes });
+    }
   },
+
+  setCampaignData: (data) => {
+    set({ campaignData: data });
+  }
 }));

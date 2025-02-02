@@ -1,40 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { Switch } from "@headlessui/react"; // For toggle switch
 
-const Form = () => {
+const FormAI = () => {
   const [formA, setFormA] = useState({
-    businessName: '',
-    headlines: ['', '', '', '', '', ''],
-    siteLink: '',
+    businessName: "",
+    headlines: ["", "", "", "", "", ""],
+    siteLink: "",
     toggle: false,
-    description: '',
-    adStrength: '',
-    bidStrategyBudget: '',
-    weeklyCost: ''
+    description: "",
+    adStrength: "",
+    bidStrategyBudget: "",
+    weeklyCost: "",
   });
 
   const [formB, setFormB] = useState({
-    businessName: '',
-    headlines: ['', '', '', '', '', ''],
-    siteLink: '',
+    businessName: "",
+    headlines: ["", "", "", "", "", ""],
+    siteLink: "",
     toggle: false,
-    description: '',
-    adStrength: '',
-    bidStrategyBudget: '',
-    weeklyCost: ''
+    description: "",
+    adStrength: "",
+    bidStrategyBudget: "",
+    weeklyCost: "",
   });
 
-  const [suggestions, setSuggestions] = useState({
-    formA: {},
-    formB: {}
-  });
-
-  const [shuffledHeadline, setShuffledHeadline] = useState('');
+  const [shuffledHeadline, setShuffledHeadline] = useState("");
 
   useEffect(() => {
     if (formA.headlines.length > 0) {
       const shuffleHeadlines = () => {
-        const shuffled = formA.headlines[Math.floor(Math.random() * formA.headlines.length)];
+        const shuffled =
+          formA.headlines[Math.floor(Math.random() * formA.headlines.length)];
         setShuffledHeadline(shuffled);
       };
       const interval = setInterval(shuffleHeadlines, 3000);
@@ -42,26 +38,27 @@ const Form = () => {
     }
   }, [formA.headlines]);
 
-  const handleInputChange = (form, setForm, field, index = null) => (e) => {
-    const value = e.target.value;
-    setForm((prev) => {
-      if (index !== null) {
-        const headlines = [...prev.headlines];
-        headlines[index] = value;
-        return { ...prev, headlines };
-      }
-      return { ...prev, [field]: value };
-    });
-  };
+  const handleInputChange =
+    (form, setForm, field, index = null) =>
+    (e) => {
+      const value = e.target.value;
+      setForm((prev) => {
+        if (index !== null) {
+          const headlines = [...prev.headlines];
+          headlines[index] = value;
+          return { ...prev, headlines };
+        }
+        return { ...prev, [field]: value };
+      });
+    };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = { formA, formB };
+    const data = { formA };
     console.log("Form A:", JSON.stringify(formA, null, 2));
-    console.log("Form B:", JSON.stringify(formB, null, 2));
 
     try {
-      const response = await fetch("http://13.61.152.203:8000/ab", {
+      const response = await fetch("http://13.61.152.203:8000/generate_formB", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -71,7 +68,8 @@ const Form = () => {
       const result = await response.text();
       const resultObj = JSON.parse(result);
       const resultObj2 = JSON.parse(resultObj);
-      setSuggestions(resultObj2);
+      console.log("Result:", resultObj2);
+      setFormB(resultObj2);
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -82,7 +80,7 @@ const Form = () => {
       <form onSubmit={handleSubmit}>
         <div className="bg-white shadow-lg rounded-lg p-6 w-[600px]">
           <h2 className="text-xl font-semibold mb-4">
-            Google Ads - New Campaign A
+            Google Ads - New Campaign
           </h2>
 
           <div className="mb-4">
@@ -94,12 +92,6 @@ const Form = () => {
               value={formA.businessName}
               onChange={handleInputChange(formA, setFormA, "businessName")}
             />
-            <div className="flex items-center mb-4">
-              <i className="fas fa-info-circle text-blue-500 mr-2"></i>
-              <span className="text-blue-500">
-                {suggestions?.formA?.businessName || "AI suggestion"}
-              </span>
-            </div>
           </div>
 
           {/* Headline Inputs */}
@@ -118,12 +110,6 @@ const Form = () => {
                   index
                 )}
               />
-              <div className="flex items-center mb-4">
-                <i className="fas fa-info-circle text-blue-500 mr-2"></i>
-                <span className="text-blue-500">
-                  {suggestions?.formA?.headlines?.[index] || "AI suggestion"}
-                </span>
-              </div>
             </div>
           ))}
 
@@ -136,12 +122,6 @@ const Form = () => {
               value={formA.siteLink}
               onChange={handleInputChange(formA, setFormA, "siteLink")}
             />
-            <div className="flex items-center mb-4">
-              <i className="fas fa-info-circle text-blue-500 mr-2"></i>
-              <span className="text-blue-500">
-                {suggestions?.formA?.siteLink || "AI suggestion"}
-              </span>
-            </div>
           </div>
 
           {/* Toggle: Make Descriptions Unique */}
@@ -164,14 +144,6 @@ const Form = () => {
                 } inline-block h-4 w-4 transform bg-white rounded-full`}
               />
             </Switch>
-            <div className="flex items-center mb-4">
-              <i className="fas fa-info-circle text-blue-500 mr-2"></i>
-              <span className="text-blue-500">
-                {suggestions?.formA?.toggle !== undefined
-                  ? suggestions?.formA?.toggle.toString()
-                  : "AI suggestion"}
-              </span>
-            </div>
           </div>
 
           {/* Descriptions */}
@@ -184,12 +156,6 @@ const Form = () => {
               value={formA.description}
               onChange={handleInputChange(formA, setFormA, "description")}
             ></textarea>
-            <div className="flex items-center mb-4">
-              <i className="fas fa-info-circle text-blue-500 mr-2"></i>
-              <span className="text-blue-500">
-                {suggestions?.formA?.description || "AI suggestion"}
-              </span>
-            </div>
           </div>
 
           {/* Ad Strength */}
@@ -201,12 +167,6 @@ const Form = () => {
             <p className="text-xs text-gray-500">
               Add more headlines to increase performance
             </p>
-            <div className="flex items-center mb-4">
-              <i className="fas fa-info-circle text-blue-500 mr-2"></i>
-              <span className="text-blue-500">
-                {suggestions?.formA?.adStrength || "AI suggestion"}
-              </span>
-            </div>
           </div>
 
           {/* Preview Section */}
@@ -214,7 +174,7 @@ const Form = () => {
             <h3 className="text-sm font-medium">Preview</h3>
             <div className="p-3 border rounded bg-gray-100 text-sm">
               <p className="font-semibold">Sponsored</p>
-              <p className="text-blue-500">
+              <p className="text-blue-500 outline-black">
                 {formA.siteLink ? formA.siteLink : "www.example.com"}
               </p>
               <p>{shuffledHeadline || "Site Headline"}</p>
@@ -246,12 +206,6 @@ const Form = () => {
               >
                 <i className="fas fa-info-circle"></i>
               </div>
-              <div className="flex items-center mb-4">
-                <i className="fas fa-info-circle text-blue-500 mr-2"></i>
-                <span className="text-blue-500">
-                  {suggestions?.formA?.bidStrategyBudget || "AI suggestion"}
-                </span>
-              </div>
             </div>
             <div className="p-3 border rounded relative">
               <label className="font-medium">Weekly Cost</label>
@@ -271,12 +225,6 @@ const Form = () => {
               >
                 <i className="fas fa-info-circle"></i>
               </div>
-              <div className="flex items-center mb-4">
-                <i className="fas fa-info-circle text-blue-500 mr-2"></i>
-                <span className="text-blue-500">
-                  {suggestions?.formA?.weeklyCost || "AI suggestion"}
-                </span>
-              </div>
             </div>
           </div>
 
@@ -285,7 +233,7 @@ const Form = () => {
             type="submit"
             className="mt-5 w-full bg-blue-500 text-white py-2 rounded cursor-pointer"
           >
-            Save Campaign
+            Transform
           </button>
         </div>
       </form>
@@ -293,24 +241,19 @@ const Form = () => {
       <form onSubmit={handleSubmit}>
         <div className="bg-white shadow-lg rounded-lg p-6 w-[600px]">
           <h2 className="text-xl font-semibold mb-4">
-            Google Ads - New Campaign B
+            Google Ads - AI Generated
           </h2>
 
           <div className="mb-4">
             <label className="text-sm font-medium">Business Name</label>
             <input
               type="text"
-              className="w-full p-2 border rounded mt-1"
+              disabled
+              className="w-full p-2 border rounded mt-1 text-blue-500 outline-black"
               placeholder="Your business name"
               value={formB.businessName}
               onChange={handleInputChange(formB, setFormB, "businessName")}
             />
-            <div className="flex items-center mb-4">
-              <i className="fas fa-info-circle text-blue-500 mr-2"></i>
-              <span className="text-blue-500">
-                {suggestions?.formB?.businessName || "AI suggestion"}
-              </span>
-            </div>
           </div>
 
           {/* Headline Inputs */}
@@ -319,7 +262,8 @@ const Form = () => {
               <label className="text-sm font-medium">Headline</label>
               <input
                 type="text"
-                className="w-full p-2 border rounded mt-1"
+                disabled
+                className="w-full p-2 border rounded mt-1 text-blue-500 outline-black"
                 placeholder="Headline"
                 value={headline}
                 onChange={handleInputChange(
@@ -329,14 +273,6 @@ const Form = () => {
                   index
                 )}
               />
-              <div className="flex items-center mb-4">
-                <i className="fas fa-info-circle text-blue-500 mr-2"></i>
-                <span className="text-blue-500">
-                  {suggestions?.formB?.headlines
-                    ? suggestions?.formB?.headlines[index]
-                    : "AI suggestion"}
-                </span>
-              </div>
             </div>
           ))}
 
@@ -344,17 +280,12 @@ const Form = () => {
             <label className="text-sm font-medium">Site Link</label>
             <input
               type="text"
-              className="w-full p-2 border rounded mt-1"
+              disabled
+              className="w-full p-2 border rounded mt-1 text-blue-500 outline-black"
               placeholder="Site Link"
               value={formB.siteLink}
               onChange={handleInputChange(formB, setFormB, "siteLink")}
             />
-            <div className="flex items-center mb-4">
-              <i className="fas fa-info-circle text-blue-500 mr-2"></i>
-              <span className="text-blue-500">
-                {suggestions?.formB?.siteLink || "AI suggestion"}
-              </span>
-            </div>
           </div>
 
           {/* Toggle: Make Descriptions Unique */}
@@ -377,32 +308,19 @@ const Form = () => {
                 } inline-block h-4 w-4 transform bg-white rounded-full`}
               />
             </Switch>
-            <div className="flex items-center mb-4">
-              <i className="fas fa-info-circle text-blue-500 mr-2"></i>
-              <span className="text-blue-500">
-                {suggestions?.formB?.toggle !== undefined
-                  ? suggestions?.formB?.toggle.toString()
-                  : "AI suggestion"}
-              </span>
-            </div>
           </div>
 
           {/* Descriptions */}
           <div className="mb-4">
             <label className="text-sm font-medium">Descriptions (3/4)</label>
             <textarea
-              className="w-full p-2 border rounded mt-1"
+              className="w-full p-2 border rounded mt-1 text-blue-500 outline-black"
+              disabled
               placeholder="Enter your ad description..."
               rows="3"
               value={formB.description}
               onChange={handleInputChange(formB, setFormB, "description")}
             ></textarea>
-            <div className="flex items-center mb-4">
-              <i className="fas fa-info-circle text-blue-500 mr-2"></i>
-              <span className="text-blue-500">
-                {suggestions?.formB?.description || "AI suggestion"}
-              </span>
-            </div>
           </div>
 
           {/* Ad Strength */}
@@ -414,12 +332,6 @@ const Form = () => {
             <p className="text-xs text-gray-500">
               Add more headlines to increase performance
             </p>
-            <div className="flex items-center mb-4">
-              <i className="fas fa-info-circle text-blue-500 mr-2"></i>
-              <span className="text-blue-500">
-                {suggestions?.formB?.adStrength || "AI suggestion"}
-              </span>
-            </div>
           </div>
 
           {/* Preview Section */}
@@ -427,7 +339,7 @@ const Form = () => {
             <h3 className="text-sm font-medium">Preview</h3>
             <div className="p-3 border rounded bg-gray-100 text-sm">
               <p className="font-semibold">Sponsored</p>
-              <p className="text-blue-500">
+              <p className="text-blue-500 outline-black">
                 {formB.siteLink ? formB.siteLink : "www.example.com"}
               </p>
               <p>{shuffledHeadline || "Site Headline"}</p>
@@ -441,7 +353,8 @@ const Form = () => {
               <label className="font-medium">Bid Strategy Budget</label>
               <input
                 type="number"
-                className="w-full p-2 border rounded mt-1"
+                disabled
+                className="w-full p-2 border rounded mt-1 text-blue-500 outline-black"
                 placeholder="Enter budget"
                 value={formB.bidStrategyBudget || ""}
                 onChange={handleInputChange(
@@ -459,18 +372,13 @@ const Form = () => {
               >
                 <i className="fas fa-info-circle"></i>
               </div>
-              <div className="flex items-center mb-4">
-                <i className="fas fa-info-circle text-blue-500 mr-2"></i>
-                <span className="text-blue-500">
-                  {suggestions?.formB?.bidStrategyBudget || "AI suggestion"}
-                </span>
-              </div>
             </div>
             <div className="p-3 border rounded relative">
               <label className="font-medium">Weekly Cost</label>
               <input
                 type="number"
-                className="w-full p-2 border rounded mt-1"
+                disabled
+                className="w-full p-2 border rounded mt-1 text-blue-500 outline-black"
                 placeholder="Enter weekly cost"
                 value={formB.weeklyCost || ""}
                 onChange={handleInputChange(formB, setFormB, "weeklyCost")}
@@ -484,26 +392,12 @@ const Form = () => {
               >
                 <i className="fas fa-info-circle"></i>
               </div>
-              <div className="flex items-center mb-4">
-                <i className="fas fa-info-circle text-blue-500 mr-2"></i>
-                <span className="text-blue-500">
-                  {suggestions?.formB?.weeklyCost || "AI suggestion"}
-                </span>
-              </div>
             </div>
           </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="mt-5 w-full bg-blue-500 text-white py-2 rounded cursor-pointer"
-          >
-            Save Campaign
-          </button>
         </div>
       </form>
     </div>
   );
 };
 
-export default Form;
+export default FormAI;
