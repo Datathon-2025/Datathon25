@@ -6,6 +6,8 @@ type WorkflowStore = {
   nodes: Node[];
   edges: Edge[];
   campaignData: any;
+  isSimulationMode: boolean;
+  setisSimulationMode: (mode: boolean) => void;
   setCampaignData: (data: any) => void;
   addNodeWithButton: (node: Node, nodeId: string) => void;
   removeEdge: (edgeId: string) => void;
@@ -42,6 +44,10 @@ export const useWorkflowStore = create<WorkflowStore>((set, get) => ({
   nodes: initialNodes,
   edges: initialEdges,
   campaignData: null,
+  isSimulationMode: true,
+  setisSimulationMode: (mode: boolean) => {
+    set({ isSimulationMode: mode });
+  },
 
   updateLayout: () => {
     const { nodes, edges } = get();

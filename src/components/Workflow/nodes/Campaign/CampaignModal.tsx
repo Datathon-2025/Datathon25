@@ -5,7 +5,7 @@ import { useWorkflowStore } from '../../../../stores/workflowStore';
 
 export default function CampaignModal({campaignData}) {
   const { isOpen, selectedNode, closeModal } = useModalStore();
-  const {setCampaignData} = useWorkflowStore();
+  const {setCampaignData, setisSimulationMode} = useWorkflowStore();
   const [formA, setFormA] = useState({
     businessName: '',
     headlines: ['', '', '', '', '', ''],
@@ -32,7 +32,8 @@ export default function CampaignModal({campaignData}) {
       weeklyCost: '1000'
     })
     setShowForm(true);
-    
+    setisSimulationMode(false);
+
   }
 
   useEffect(() => {

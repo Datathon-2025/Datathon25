@@ -1,6 +1,7 @@
-import type React from "react"
+import React from "react"
 import { useState } from "react"
 import { useModalStore } from "../../../../stores/modalStore"
+import { useWorkflowStore } from "../../../../stores/workflowStore"
 
 const fieldDescriptions = {
   keyword: "The specific search term or phrase being analyzed",
@@ -10,7 +11,7 @@ const fieldDescriptions = {
 
 export default function MarketTrendsModal() {
   const { isOpen, selectedNode, closeModal } = useModalStore()
-  const [isSimulationMode, setIsSimulationMode] = useState(false)
+  const {isSimulationMode} = useWorkflowStore()
   const [formData, setFormData] = useState({
     keyword: "",
     keywordPerformance: "",
@@ -74,17 +75,6 @@ export default function MarketTrendsModal() {
     <div className="fixed inset-0 bg-black/30  flex justify-center items-center">
       <div className="bg-white p-6 rounded-lg w-[32rem] max-h-[90vh] overflow-y-auto">
         <h2 className="text-xl font-bold mb-4">Market Trends Configuration</h2>
-        <div className="mb-4">
-          <label className="flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              checked={isSimulationMode}
-              onChange={(e) => setIsSimulationMode(e.target.checked)}
-              className="mr-2"
-            />
-            <span>Simulation Mode</span>
-          </label>
-        </div>
         <div className="space-y-4">
           {renderField("keyword", "Keyword")}
           {renderField("keywordPerformance", "Keyword Performance")}
