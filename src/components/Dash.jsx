@@ -64,113 +64,124 @@ const generateSyntheticData = () => {
 
 const Dash = () => {
   const [campaignData, setCampaignData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCampaignData = async () => {
       try {
         const response = await axios.get("http://13.61.152.203:5000/get_campaigns");
-        setCampaignData(response.data);
+        const data = Array.isArray(response.data) ? response.data : generateSyntheticData();
+        setCampaignData(data);
       } catch (error) {
         console.error("Error fetching campaign data:", error);
         // Use synthetic data in case of error
         setCampaignData(generateSyntheticData());
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchCampaignData();
   }, []);
 
+  if (loading) {
+    return <div className="p-6 bg-gray-100 min-h-screen flex items-center justify-center">Loading...</div>;
+  }
+
   return (
-    <>
-      <div className="p-4">
-        <StatsCard />
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <div className="bg-white p-4 rounded-xl shadow-md">
+          <StatsCard campaignData={campaignData} />
+        </div>
+        <div className="bg-white p-4 rounded-xl shadow-md">
+          <CampaignCard campaignData={campaignData} />
+        </div>
       </div>
-      <div className="p-4 rounded-xl shadow-md">
-        <CampaignCard />
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        {/* Performance Analytics */}
+        <div className="bg-white p-4 rounded-xl shadow-md">
+          <h2 className="text-xl font-semibold mb-2">Performance Analytics</h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={campaignData.map(campaign => ({
+              name: campaign.campaign_name,
+              CTR: campaign.campaign_performance.ctr,
+              Impressions: campaign.campaign_performance.impressions,
+              Clicks: campaign.campaign_performance.clicks,
+            }))}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="CTR" stroke="#0088FE" />
+              <Line type="monotone" dataKey="Impressions" stroke="#00C49F" />
+              <Line type="monotone" dataKey="Clicks" stroke="#FF8042" />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Budget Allocation */}
+        <div className="bg-white p-4 rounded-xl shadow-md">
+          <h2 className="text-xl font-semibold mb-2">Budget Allocation</h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie data={campaignData.map(campaign => ({
+                platform: campaign.campaign_name,
+                spend: campaign.campaign_performance.cost,
+              }))} dataKey="spend" nameKey="platform" outerRadius={100}>
+                {campaignData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Customer Behavior Analysis */}
+        <div className="bg-white p-4 rounded-xl shadow-md">
+          <h2 className="text-xl font-semibold mb-2">Customer Behavior</h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie data={campaignData.map(campaign => ({
+                name: campaign.campaign_name,
+                value: campaign.campaign_performance.conversions,
+              }))} dataKey="value" nameKey="name" outerRadius={100}>
+                {campaignData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       </div>
-      <div className="p-6 bg-gray-100 min-h-screen grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Performance Analytics */}
-          <div className="bg-white p-4 rounded-xl shadow-md">
-            <h2 className="text-xl font-semibold mb-2">Performance Analytics</h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={campaignData.map(campaign => ({
-                name: campaign.campaign_name,
-                CTR: campaign.campaign_performance.ctr,
-                Impressions: campaign.campaign_performance.impressions,
-                Clicks: campaign.campaign_performance.clicks,
-              }))}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="CTR" stroke="#0088FE" />
-                <Line type="monotone" dataKey="Impressions" stroke="#00C49F" />
-                <Line type="monotone" dataKey="Clicks" stroke="#FF8042" />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
 
-          {/* Budget Allocation */}
-          <div className="bg-white p-4 rounded-xl shadow-md">
-            <h2 className="text-xl font-semibold mb-2">Budget Allocation</h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie data={campaignData.map(campaign => ({
-                  platform: campaign.campaign_name,
-                  spend: campaign.campaign_performance.cost,
-                }))} dataKey="spend" nameKey="platform" outerRadius={100}>
-                  {campaignData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-
-          {/* Customer Behavior Analysis */}
-          <div className="bg-white p-4 rounded-xl shadow-md">
-            <h2 className="text-xl font-semibold mb-2">Customer Behavior</h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie data={campaignData.map(campaign => ({
-                  name: campaign.campaign_name,
-                  value: campaign.campaign_performance.conversions,
-                }))} dataKey="value" nameKey="name" outerRadius={100}>
-                  {campaignData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-
-          {/* Market Trends */}
-          <div className="bg-white p-4 rounded-xl shadow-md">
-            <h2 className="text-xl font-semibold mb-2">Market Trends</h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={campaignData.map(campaign => ({
-                name: campaign.campaign_name,
-                popularity: campaign.campaign_performance.impressions,
-              }))}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="popularity" fill="#FFBB28" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        {/* Market Trends */}
+        <div className="bg-white p-4 rounded-xl shadow-md lg:col-span-2">
+          <h2 className="text-xl font-semibold mb-2">Market Trends</h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={campaignData.map(campaign => ({
+              name: campaign.campaign_name,
+              popularity: campaign.campaign_performance.impressions,
+            }))}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="popularity" fill="#FFBB28" />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
 
         {/* AI Recommendations */}
-        <div className="bg-white p-4 rounded-xl shadow-md lg:col-span-1 h-auto max-h-92 overflow-y-auto">
+        <div className="bg-white p-4 rounded-xl shadow-md h-auto max-h-92 overflow-y-auto">
           <h2 className="text-xl font-semibold mb-2">AI Recommendations</h2>
           <ul className="list-disc ml-5 text-gray-700">
             <li>Optimize your PPC campaigns based on peak engagement hours.</li>
@@ -180,7 +191,7 @@ const Dash = () => {
           </ul>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

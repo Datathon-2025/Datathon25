@@ -1,34 +1,33 @@
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react";
 
-export default function StatsCard() {
-  const [clicks, setClicks] = useState(0)
-  const [impressions, setImpressions] = useState(0)
-  const [cpc, setCpc] = useState(728)
-  const [cpa, setCpa] = useState(0)
+export default function StatsCard({ campaignData }) {
+  const [clicks, setClicks] = useState(0);
+  const [impressions, setImpressions] = useState(0);
+  const [cpc, setCpc] = useState(0);
+  const [cpa, setCpa] = useState(0);
 
   useEffect(() => {
-    fetch('http://13.61.152.203:5000/get_all_stats')
-      .then((response) => response.text())
-      .then((data) => {
-        const jsonData = JSON.parse(data)
-        console.log(jsonData)
-        setClicks(jsonData.number_of_clicks)
-        setImpressions(jsonData.number_of_impressions)
-        setCpc(jsonData.average_cpc)
-        setCpa(jsonData.cost)
-        console.log(jsonData.number_of_clicks)
-        console.log(jsonData.number_of_impressions)
-        console.log(jsonData.average_cpc)
-        console.log(jsonData.cost)
-      })
-  }, [])
+    if (campaignData.length > 0) {
+      const totalClicks = campaignData.reduce((sum, campaign) => sum + campaign.campaign_performance.clicks, 0);
+      const totalImpressions = campaignData.reduce((sum, campaign) => sum + campaign.campaign_performance.impressions, 0);
+      const totalCost = campaignData.reduce((sum, campaign) => sum + campaign.campaign_performance.cost, 0);
+      const totalConversions = campaignData.reduce((sum, campaign) => sum + campaign.campaign_performance.conversions, 0);
+      const averageCpc = totalCost / totalClicks;
+      const averageCpa = totalCost / (totalConversions || 1); // Avoid division by zero
+
+      setClicks(totalClicks);
+      setImpressions(totalImpressions);
+      setCpc(averageCpc);
+      setCpa(averageCpa);
+    }
+  }, [campaignData]);
 
   const stats = [
     { name: 'Number of clicks', value: clicks },
-    { name: 'Average CPC', value: cpc },
-    { name: 'Cost', value: cpa },
+    { name: 'Average CPC', value: cpc.toFixed(2) },
+    { name: 'Cost', value: cpa.toFixed(2) },
     { name: 'Impressions', value: impressions },
-  ]
+  ];
 
   return (
     <div className="bg-gray-900 rounded-lg shadow-md">
@@ -43,5 +42,5 @@ export default function StatsCard() {
         </div>
       </div>
     </div>
-  )
+  );
 }
