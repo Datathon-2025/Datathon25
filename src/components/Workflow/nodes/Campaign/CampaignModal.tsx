@@ -3,7 +3,7 @@ import { Switch } from "@headlessui/react"; // For toggle switch
 import { useModalStore } from "../../../../stores/modalStore";
 import { useWorkflowStore } from '../../../../stores/workflowStore';
 
-export default function CampaignModal() {
+export default function CampaignModal({campaignData}) {
   const { isOpen, selectedNode, closeModal } = useModalStore();
   const {setCampaignData} = useWorkflowStore();
   const [formA, setFormA] = useState({
@@ -19,6 +19,21 @@ export default function CampaignModal() {
 
   const [shuffledHeadline, setShuffledHeadline] = useState('');
   const [showForm, setShowForm] = useState(false);
+
+  const getD = () => {
+    setFormA({
+      businessName: 'CSI KJSCE',
+      headlines: ['iDEA Hackathon', 'KJSCE Hackathon', 'Union Bank Hackathon', '', '', ''],
+      siteLink: 'https://ideahackathon.com',
+      toggle: false,
+      description: 'iDEA Hackathon by Union Bank of India and CSI KJSCE',
+      adStrength: '',
+      bidStrategyBudget: '1.2',
+      weeklyCost: '1000'
+    })
+    setShowForm(true);
+    
+  }
 
   useEffect(() => {
     if (formA.headlines.length > 0) {
@@ -67,21 +82,9 @@ export default function CampaignModal() {
           <div>
             <h2 className="text-xl font-semibold mb-4">Select a Campaign</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="p-4 border rounded shadow hover:shadow-lg cursor-pointer">
-                <h3 className="text-lg font-medium">Campaign 1</h3>
-                <p className="text-sm text-gray-500">Description of Campaign 1</p>
-              </div>
-              <div className="p-4 border rounded shadow hover:shadow-lg cursor-pointer">
-                <h3 className="text-lg font-medium">Campaign 2</h3>
-                <p className="text-sm text-gray-500">Description of Campaign 2</p>
-              </div>
-              <div className="p-4 border rounded shadow hover:shadow-lg cursor-pointer">
-                <h3 className="text-lg font-medium">Campaign 3</h3>
-                <p className="text-sm text-gray-500">Description of Campaign 3</p>
-              </div>
-              <div className="p-4 border rounded shadow hover:shadow-lg cursor-pointer">
-                <h3 className="text-lg font-medium">Campaign 4</h3>
-                <p className="text-sm text-gray-500">Description of Campaign 4</p>
+              <div className="p-4 border rounded shadow hover:shadow-lg cursor-pointer" onClick={getD}>
+                <h3 className="text-lg font-medium">Campaign #1</h3>
+                <p className="text-sm text-gray-500">22nd Jan 2025 - 2nd Feb 2025</p>
               </div>
             </div>
             <div className="flex justify-end mt-5">
