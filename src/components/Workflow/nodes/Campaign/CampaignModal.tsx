@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Switch } from "@headlessui/react"; // For toggle switch
 import { useModalStore } from "../../../../stores/modalStore";
+import { useWorkflowStore } from '../../../../stores/workflowStore';
 
 export default function CampaignModal() {
   const { isOpen, selectedNode, closeModal } = useModalStore();
+  const {setCampaignData} = useWorkflowStore();
   const [formA, setFormA] = useState({
     businessName: '',
     headlines: ['', '', '', '', '', ''],
@@ -44,6 +46,8 @@ export default function CampaignModal() {
   if (!isOpen || selectedNode?.type !== "campaign") return null;
 
   const handleSave = () => {
+    console.log(formA);
+    setCampaignData(formA);
     closeModal();
   };
 
