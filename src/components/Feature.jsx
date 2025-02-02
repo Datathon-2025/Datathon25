@@ -2,6 +2,8 @@ import Img1 from '../assets/image1.png';
 import Img2 from '../assets/image2.png';
 import Img3 from '../assets/image3.png';
 import Img4 from '../assets/image4.png';
+import Img5 from '../assets/image5.png';
+import Img6 from '../assets/image6.png';
 
 export function Feature() {
   return (
@@ -80,6 +82,43 @@ export function Feature() {
               </p>
             </div>
           </section>
+
+          <section aria-labelledby="features-heading" className="relative flex flex-col lg:flex-row items-center">
+            <div className="lg:w-1/2 lg:pr-4 xl:pr-16 h">
+              <img
+                alt="Easy Accessibility"
+                src={Img5}
+                className="h-3/4 w-3/4 object-cover object-center rounded-lg shadow-lg transition-transform transform hover:scale-105"
+              />
+            </div>
+            <div className="lg:w-1/2 mt-8 lg:mt-0 lg:pl-8 h-100">
+              <h3 className="text-8xl font-semibold text-gray-900">Automated Decision Making.</h3>
+              <p className="mt-4 text-2xl text-gray-700">
+              Uses intelligent agents to analyze campaign performance and suggest next steps.
+                Automates A/B testing to determine the best-performing strategies.
+                Reduces manual effort by making data-driven marketing decisions automatically.
+              </p>
+            </div>
+          </section>
+
+          <section aria-labelledby="features-heading" className="relative flex flex-col lg:flex-row-reverse items-center">
+            <div className="lg:w-1/2 lg:pl-4 xl:pl-16">
+              <img
+                alt="Manage Campaigns with Ease"
+                src={Img6}
+                className="h-3/4 w-3/4 object-cover object-center rounded-lg shadow-lg transition-transform transform hover:scale-105"
+              />
+            </div>
+            <div className="lg:w-1/2 mt-8 lg:mt-0 lg:pr-8">
+              <h3 className="text-7xl font-semibold text-gray-900">Performance Analytics.</h3>
+              <p className="mt-4 text-2xl text-gray-700">
+              Fetches and visualizes data from Google Search Console.
+               Provides insights on site traffic, search rankings, and user engagement.
+               Uses AI to suggest improvements for better SEO and site performance.
+              </p>
+            </div>
+          </section>
+
         </div>
       </div>
     </div>
