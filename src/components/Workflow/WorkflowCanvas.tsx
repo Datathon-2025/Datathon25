@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useRef, useState, useEffect } from "react";
 import ReactFlow, {
   Background,
   Controls,
@@ -25,6 +25,7 @@ import AudienceDemographicsNodeModal from "../Workflow/nodes/AudienceDemographic
 import BudgetAllocationNodeModal from "../Workflow/nodes/BudgetAllocation/BudgetAllocationModal.tsx";
 import MarketTrendsNodeModal from "../Workflow/nodes/MarketTrends/MarketTrendsModal.tsx";
 import AnalysisNodeModal from "../Workflow/nodes/Analysis/AnalysisModal.tsx";
+import axios from "axios";
 
 const edgeTypes = {
   smoothstep: CustomEdge,
@@ -47,8 +48,26 @@ export default function WorkflowCanvas() {
   const openModal = useModalStore((state) => state.openModal);
   const [nodes, setNodes, onNodesChange] = useNodesState(store.nodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(store.edges);
+  const [campaignData, setCampaignData] = useState<any>(null);
 
-  console.log(nodes);
+  useEffect(() => {
+    const fetchCampaignData = async () => {
+      try {
+        const response = await axios.get("http://13.61.152.203:5000/get_campaigns", {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+    
+        const data = JSON.parse(response.data);
+        setCampaignData(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    
+    fetchCampaignData();
+  }, []);
 
   const [reactFlowInstance, setReactFlowInstance] =
     React.useState<ReactFlowInstance | null>(null);
@@ -144,7 +163,7 @@ export default function WorkflowCanvas() {
         <ExecuteFlowButton />
       </ReactFlow>
       <NodeSidebar />
-      <CampaignNodeModal />
+      <CampaignNodeModal campaignData={campaignData} />
       <PlatformMetricsNodeModal />
       <AudienceDemographicsNodeModal />
       <BudgetAllocationNodeModal />
