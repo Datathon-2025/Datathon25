@@ -9,23 +9,41 @@ const statuses = {
 const clients = [
   {
     id: 1,
-    name: 'Tuple',
-    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnI0GL5-EXLCBs8VLYSNUhLG_NwhE13htkjQ&s',
-    lastInvoice: { date: 'December 13, 2022', dateTime: '2022-12-13', amount: '$2,000.00', status: 'Overdue' },
+    name: "iDEA Hack",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnI0GL5-EXLCBs8VLYSNUhLG_NwhE13htkjQ&s",
+    lastInvoice: {
+      date: "December 13, 2022",
+      dateTime: "2022-12-13",
+      amount: "₹2,000.00",
+      status: "Overdue",
+    },
   },
   {
     id: 2,
-    name: 'Youtube analytics',
-    imageUrl: 'https://cdn.prod.website-files.com/65adf1a878ae17b8b4647663/65b745517a9a4a5ff4fd119b_639d7f54d81fb2a083dbaf8f_youtube_analytics.svg',
-    lastInvoice: { date: 'January 22, 2023', dateTime: '2023-01-22', amount: '$14,000.00', status: 'Paid' },
+    name: "Arnab-AFK",
+    imageUrl:
+      "https://cdn.prod.website-files.com/65adf1a878ae17b8b4647663/65b745517a9a4a5ff4fd119b_639d7f54d81fb2a083dbaf8f_youtube_analytics.svg",
+    lastInvoice: {
+      date: "January 22, 2023",
+      dateTime: "2023-01-22",
+      amount: "₹14,000.00",
+      status: "Paid",
+    },
   },
   {
     id: 3,
-    name: 'Google search console',
-    imageUrl: 'https://www.linknacional.com.br/wp-content/uploads/2022/09/search-console.jpg',
-    lastInvoice: { date: 'January 23, 2023', dateTime: '2023-01-23', amount: '$7,600.00', status: 'Paid' },
+    name: "ideahackathon.com",
+    imageUrl:
+      "https://www.linknacional.com.br/wp-content/uploads/2022/09/search-console.jpg",
+    lastInvoice: {
+      date: "January 23, 2023",
+      dateTime: "2023-01-23",
+      amount: "₹7,600.00",
+      status: "Paid",
+    },
   },
-]
+];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
