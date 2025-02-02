@@ -12,7 +12,7 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
           className="text-5xl md:text-8xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500"
         >
-          Datathon
+          Campify
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
